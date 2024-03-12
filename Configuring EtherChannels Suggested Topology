@@ -17,6 +17,14 @@ requested by the opposite interface.
 4. Off: No EtherChannel configured on the interface.
 
 Step 1 : Topology 
+fa0/3                     fa0/3
+[ - ]-------------------[ - ]2960 24TT
+  - fa0/10                - fa0/10
+  -                       -
+  -                       -
+  -                       -
+ [ ] fa0                  [ ] fa0
+ -|-                      -|-
 
 Step2: Configurations On Switch 1 and Switch 0 
 
@@ -66,7 +74,15 @@ by the opposite interface.
 4. Off: No EtherChannel configured on the interface.
 
 Step1:Topology
-
+fa0/4                     fa0/4
+[ - ]-------------------[ - ]2960 24TT
+  - fa0/5                 - fa0/5
+  -                       -
+  -                       -
+  -                       -
+ [ ] fa0                  [ ] fa0
+ -|-                      -|-
+192.168.10.2             192.168.10.3
 Step2: Configurations On Switch 0 and Switch 1
 
 Switch 0 
