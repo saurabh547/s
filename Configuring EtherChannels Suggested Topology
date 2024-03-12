@@ -1,0 +1,95 @@
+Introduction 
+EtherChannel is a port link aggregation technology in which multiple physical port links are grouped into 
+one logical link. It is used to provide high-speed links and redundancy. A maximum of 8 links can be 
+aggregated to form a single logical link.  
+EtherChannel protocols – To form an EtherChannel, there are 2 protocols, port aggregation Protocol 
+(PAgP) and link aggregation control protocol (LACP). 
+
+1.LACP - Link Aggregation Control Protocol 
+Link Aggregation Control Protocol is an IEEE protocol, originally defined in 802.3ad, used to form an 
+EtherChannel. This protocol is almost similar to Cisco PAgP. There are different modes in which you can 
+configure your interface. These are namely:   
+1. ON: In this mode, the interface will be a part of EtherChannel but no negotiation takes place 
+2. Active: In this mode, the interface will continuously attempt to convert the other side interface 
+into an EtherChannel. 
+3. Passive: In this mode, the interface will become a part of EtherChannel if and only if it is 
+requested by the opposite interface. 
+4. Off: No EtherChannel configured on the interface.
+
+Step 1 : Topology 
+
+Step2: Configurations On Switch 1 and Switch 0 
+
+***Switch1 
+
+Switch>en 
+Switch#show spanning-tree 
+
+Switch#conf t 
+Enter configuration commands, one per line. End with CNTL/Z. 
+Switch(config)#int range f0/1-3 
+Switch(config-if-range)#channel-group 2 mode active 
+Switch(config-if-range)# 
+
+Switch(config-if-range)#^Z 
+Switch#show spanning-tree 
+
+Switch#show etherchannel summary 
+
+***Switch 0 
+Switch>en 
+Switch#show spanning-tree 
+
+Switch#conf t 
+Enter configuration commands, one per line. End with CNTL/Z. 
+Switch(config)#int range f0/1-3 
+Switch(config-if-range)#channel-protocol lacp 
+Switch(config-if-range)#channel-group 6 mode passive 
+Switch(config-if-range)#
+Switch(config-if-range)#^Z
+Switch#show spanning-tree 
+
+Switch#show etherchannel summary 
+
+
+
+2. PAgP - Port Aggregation Protocol 
+The Cisco proprietary protocol Port Aggregation Protocol (PAgP) is an EtherChannel technology. It’s a 
+type of data/traffic load balancing that involves the logical aggregation of Cisco Ethernet switch ports. A 
+PAgP EtherChannel can merge up to eight physical links into one virtual link. LACP, or Link Aggregation 
+Control Protocol, is an IEEE open standard. These are namely:  
+1. ON: In this mode, the interface will be a part of EtherChannel but no negotiation takes place. 
+2. Desirable: In this mode, the interface will continuously attempt to convert the other side 
+interface into an EtherChannel. 
+3. Auto: In this mode, the interface will become a part of EtherChannel if and only if it is requested 
+by the opposite interface. 
+4. Off: No EtherChannel configured on the interface.
+
+Step1:Topology
+
+Step2: Configurations On Switch 0 and Switch 1
+
+Switch 0 
+Switch>en 
+Switch#show spanning-tree 
+
+Switch#conf t 
+Switch(config)#int range f0/1-4 
+Switch(config-if-range)#channel-protocol pagp 
+Switch(config-if-range)#channel-group 1 mode desirable 
+Switch(config-if-range)#^Z
+
+Switch#show etherchannel summary 
+
+
+Switch1 
+Switch>en 
+Switch#show spanning-tree 
+
+Switch#conf t 
+Switch(config)#int range f0/1-4 
+Switch(config-if-range)#channel-protocol pagp 
+Switch(config-if-range)#channel-group 1 mode desirable 
+Switch(config-if-range)#^Z
+
+Switch#show etherchannel summary 
